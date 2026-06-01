@@ -1,47 +1,51 @@
 /**
- * ВЕСЬ КОНТЕНТ САЙТА В ОДНОМ ФАЙЛЕ.
- * Меняй текст/ссылки/данные здесь — остальной код трогать не нужно.
+ * ALL SITE CONTENT IN ONE FILE.
+ * Edit text / links / data here — no need to touch the rest of the code.
  *
- * Фото: положи свой файл в /public (например /public/me.jpg) и укажи путь в profile.photo.
- * CV: положи PDF в /public (например /public/cv.pdf) и укажи путь в profile.cvUrl.
+ * Photo: drop your file into /public (e.g. /public/me.jpg) and set profile.photo.
+ * CV:    /public/cv.pdf is your real CV (CV_EN.pdf).
  */
 
 import type { LucideIcon } from "lucide-react";
 import {
   Code2,
-  Cpu,
+  Brain,
   Database,
-  Cloud,
-  Layers,
-  Smartphone,
-  GitBranch,
-  Boxes,
-  Github,
-  Linkedin,
-  Mail,
-  Send,
+  LayoutDashboard,
+  Server,
+  Workflow,
+  Headphones,
+  QrCode,
+  Wallet,
   FileText,
+  LineChart,
+  Bot,
+  Github,
+  Send,
+  Mail,
+  Globe,
   Briefcase,
-  Scale,
+  GraduationCap,
 } from "lucide-react";
 
 export const profile = {
-  name: "Ваше Имя",
-  role: "Software Engineer",
-  // Роли поочерёдно «печатаются» в hero-секции:
+  name: "Almaz Gaiazov",
+  role: "Backend & AI Engineer",
+  // Roles are "typed" one by one in the hero section:
   roles: [
-    "Full-Stack Developer",
-    "Frontend Engineer",
     "Backend Engineer",
-    "Open Source Contributor",
+    "AI Engineer",
+    "Data Engineer",
+    "Python Developer",
+    "Automation Engineer",
   ],
   tagline:
-    "Создаю быстрые, надёжные и красивые продукты. Превращаю сложные задачи в понятные интерфейсы и устойчивые системы.",
-  location: "Город, Страна",
-  available: true, // зелёный индикатор «открыт к предложениям»
-  photo: "/me.jpg", // ← положи фото в /public/me.jpg (если нет — покажется заглушка)
-  cvUrl: "/cv.pdf", // ← положи CV в /public/cv.pdf
-  email: "you@example.com",
+    "I build AI-powered analytics, data pipelines and backend systems that run in production — from speech-to-text call grading to end-to-end business automation.",
+  location: "Kazan, Russia · 100% remote",
+  available: true, // green "open to work" indicator
+  photo: "/me.jpg", // ← drop your photo into /public/me.jpg (a styled placeholder shows until then)
+  cvUrl: "/cv.pdf", // ← real CV (CV_EN.pdf)
+  email: "gayazking@gmail.com",
 };
 
 export type Social = {
@@ -51,30 +55,40 @@ export type Social = {
 };
 
 export const socials: Social[] = [
-  { label: "GitHub", href: "https://github.com/", icon: Github },
-  { label: "LinkedIn", href: "https://linkedin.com/", icon: Linkedin },
-  { label: "Telegram", href: "https://t.me/", icon: Send },
-  { label: "Email", href: "mailto:you@example.com", icon: Mail },
+  { label: "GitHub", href: "https://github.com/gayazking", icon: Github },
+  { label: "Retynex Pro", href: "https://retynex.pro", icon: Globe },
+  // Telegram via phone (international format). Replace with @username if you prefer.
+  { label: "Telegram", href: "https://t.me/+79534099018", icon: Send },
+  { label: "Email", href: "mailto:gayazking@gmail.com", icon: Mail },
 ];
 
 export const stats = [
-  { value: "5+", label: "лет опыта" },
-  { value: "30+", label: "проектов" },
-  { value: "20+", label: "клиентов" },
-  { value: "∞", label: "чашек кофе" },
+  { value: "5+", label: "years experience" },
+  { value: "3", label: "active contracts" },
+  { value: "100%", label: "calls AI-graded" },
+  { value: "24/7", label: "production uptime" },
 ];
 
 export const about = {
-  heading: "Обо мне",
+  heading: "About me",
   paragraphs: [
-    "Здесь короткий рассказ о себе: кто ты, чем занимаешься, какой стек любишь и какие задачи тебя зажигают. 2–4 предложения — этого достаточно.",
-    "Можно добавить про подход к работе: внимание к деталям, чистый код, забота о пользователе и производительности. Замени этот текст своим.",
+    "I'm a software developer and backend engineer with 5+ years of experience designing and shipping production systems in Python and Go. My core domains are AI-powered analytics, data engineering, business automation and backend APIs — with the supporting admin interfaces built in TypeScript / React.",
+    "My flagship product is Retynex Pro, a commercial B2B SaaS for AI-driven call & chat analytics, in active production use by healthcare and dental clients. I currently maintain three concurrent long-term contracts as an independent contractor, working 100% remotely.",
   ],
   highlights: [
-    "Чистая архитектура и читаемый код",
-    "Внимание к UX и производительности",
-    "Командная работа и code review",
-    "Постоянное обучение и эксперименты",
+    "End-to-end ownership: backend, AI/STT, data & frontend",
+    "Production AI at scale — 100% of calls auto-graded",
+    "Self-hosted GPU/ASR cluster with 24/7 observability",
+    "Clean architecture & type-safe code (Python, Go, TS)",
+    "Three concurrent long-term contracts, fully remote",
+    "AI-assisted delivery (Claude Code, Copilot, Codex)",
+  ],
+  // Compact info panel under the bio:
+  facts: [
+    { label: "Experience", value: "5+ years" },
+    { label: "Education", value: "M.Sc. · KNRTU-KAI (Honors)" },
+    { label: "Languages", value: "Russian · Tatar · English B2" },
+    { label: "Availability", value: "100% remote, worldwide" },
   ],
 };
 
@@ -86,45 +100,52 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: "Frontend",
+    title: "Languages & Backend",
     icon: Code2,
-    items: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
+    items: ["Python", "Go", "SQL", "FastAPI", "Flask", "aiogram", "REST"],
   },
   {
-    title: "Backend",
-    icon: Cpu,
-    items: ["Node.js", "Python", "REST", "GraphQL", "WebSockets"],
+    title: "AI & Speech",
+    icon: Brain,
+    items: [
+      "LLM Integration",
+      "Prompt Engineering",
+      "Speech-to-Text",
+      "Whisper",
+      "scikit-learn",
+      "NLP",
+    ],
   },
   {
-    title: "Базы данных",
+    title: "Data & Databases",
     icon: Database,
-    items: ["PostgreSQL", "MongoDB", "Redis", "Prisma"],
+    items: ["PostgreSQL", "ClickHouse", "Redis", "MongoDB", "ETL", "1C"],
   },
   {
-    title: "DevOps & Cloud",
-    icon: Cloud,
-    items: ["Docker", "CI/CD", "AWS", "Vercel", "Nginx"],
+    title: "Frontend",
+    icon: LayoutDashboard,
+    items: ["TypeScript", "React", "HTML / CSS", "Admin dashboards"],
   },
   {
-    title: "Инструменты",
-    icon: GitBranch,
-    items: ["Git", "Figma", "Jest", "Vite", "Linux"],
+    title: "DevOps & Monitoring",
+    icon: Server,
+    items: ["Docker", "CI/CD", "Linux", "nginx", "Grafana", "Prometheus"],
   },
   {
-    title: "Mobile",
-    icon: Smartphone,
-    items: ["React Native", "Expo", "PWA"],
+    title: "Automation & BI",
+    icon: Workflow,
+    items: ["n8n", "Metabase", "Yandex DataLens", "Telegram / WhatsApp API"],
   },
 ];
 
-// Полоски навыков с процентами (анимируются при прокрутке)
+// Skill bars with percentages (animate on scroll)
 export const skillBars = [
-  { name: "JavaScript / TypeScript", level: 95 },
-  { name: "React / Next.js", level: 92 },
-  { name: "Node.js", level: 85 },
-  { name: "Python", level: 78 },
-  { name: "UI / UX Design", level: 70 },
-  { name: "DevOps", level: 65 },
+  { name: "Python", level: 95 },
+  { name: "Backend & APIs (FastAPI)", level: 92 },
+  { name: "AI & LLM Integration", level: 88 },
+  { name: "Data Engineering (SQL / ETL)", level: 87 },
+  { name: "TypeScript / React", level: 78 },
+  { name: "Go", level: 75 },
 ];
 
 export type ExperienceItem = {
@@ -133,32 +154,45 @@ export type ExperienceItem = {
   period: string;
   description: string;
   tags: string[];
+  icon?: LucideIcon;
 };
 
 export const experience: ExperienceItem[] = [
   {
-    role: "Senior Software Engineer",
-    company: "Компания / Проект",
-    period: "2023 — настоящее время",
+    role: "Backend Developer / AI Engineer",
+    company: "LLC «Girudomed» — Healthcare · Kazan (remote)",
+    period: "Apr 2025 – Present",
     description:
-      "Чем занимался, что построил, какой был результат. Опиши вклад и метрики (рост, ускорение, надёжность).",
-    tags: ["React", "Node.js", "AWS"],
+      "Long-term software development & IT-services contract. Built and scaled Retynex Pro for the client's call-center operations; delivered a QR-based time & attendance system for medical staff and an end-to-end marketing analytics warehouse with multi-touch attribution.",
+    tags: ["Python", "FastAPI", "LLM", "ClickHouse", "n8n"],
+    icon: Briefcase,
   },
   {
-    role: "Full-Stack Developer",
-    company: "Компания / Проект",
-    period: "2021 — 2023",
+    role: "Backend Developer / Data Engineer",
+    company: "LLC «Clever» — Business services · Kazan (remote)",
+    period: "Jun 2025 – Present",
     description:
-      "Краткое описание роли и ключевых достижений. Замени на свои данные.",
-    tags: ["TypeScript", "PostgreSQL", "Docker"],
+      "In-house automation & BI platform replacing manual operational processes: document workflow automation, an automated expense-management Telegram bot, n8n orchestrations, a Go aggregation service and Metabase / DataLens dashboards.",
+    tags: ["Python", "Go", "aiogram", "PostgreSQL", "Metabase"],
+    icon: Briefcase,
   },
   {
-    role: "Junior Developer",
-    company: "Компания / Проект",
-    period: "2019 — 2021",
+    role: "Backend Developer",
+    company: "IE Fandrikh A.E. — B2B IT consulting (remote)",
+    period: "May 2025 – Present",
     description:
-      "С чего начинал, какие технологии освоил, над чем работал.",
-    tags: ["JavaScript", "REST", "Git"],
+      "Primary backend developer delivering custom software for the consultancy's end-clients across industries: Telegram bots, REST API integrations bridging CRM, 1C, marketplaces and payments, ETL pipelines and Go services for high-throughput processing and competitor-price monitoring.",
+    tags: ["Python", "Go", "Redis", "n8n", "nginx"],
+    icon: Briefcase,
+  },
+  {
+    role: "M.Sc. — Automation & Control Systems",
+    company: "KNRTU-KAI · Kazan",
+    period: "2013 – 2019",
+    description:
+      "Master's degree, graduated with Honors (Red Diploma). Professional certifications: DevOps Engineer and Python Developer (Skillbox).",
+    tags: ["Honors", "DevOps", "Python"],
+    icon: GraduationCap,
   },
 ];
 
@@ -172,65 +206,74 @@ export type Project = {
   featured?: boolean;
 };
 
-/**
- * РАЗДЕЛ «КЕЙСЫ / ПРОЕКТЫ».
- *
- * ВАЖНО про твой запрос: я НЕ могу достать данные из другого чата в Claude
- * (про Малайзию, документы, кейсы, договоры) — у меня нет доступа к истории
- * других диалогов. Скопируй тот текст в наш чат, и я вставлю его сюда вместо
- * этих заглушек. Один из блоков ниже подготовлен как раз под такой кейс.
- */
 export const projects: Project[] = [
   {
-    title: "Кейс: Малайзия — документы и договоры",
+    title: "Retynex Pro — AI Call & Chat Analytics SaaS",
     description:
-      "[ЗАГЛУШКА] Сюда вставится содержимое из твоего чата про Малайзию: суть кейса, какие документы и договоры готовились, результат. Пришли текст — заменю.",
-    tags: ["Legal", "Документы", "Договоры"],
-    icon: Scale,
+      "Commercial B2B SaaS I engineered end-to-end — backend infrastructure, AI/STT layer, omnichannel chat engine, 1C data pipelines and the operator-facing web app. It transcribes, analyzes and grades 100% of operator voice calls against custom corporate KPIs, running on a self-hosted 5×GPU ASR/LLM cluster with 24/7 Grafana observability.",
+    tags: [
+      "Python",
+      "FastAPI",
+      "LLM",
+      "Speech-to-Text",
+      "PostgreSQL",
+      "ClickHouse",
+      "React",
+    ],
+    icon: Headphones,
+    link: "https://retynex.pro",
     featured: true,
   },
   {
-    title: "Проект №2",
+    title: "QR Time & Attendance System",
     description:
-      "Короткое описание проекта: задача, решение, технологии, результат. Замени на свой.",
-    tags: ["React", "TypeScript", "API"],
-    icon: Layers,
-    link: "#",
-    repo: "#",
-    featured: true,
+      "Secure QR-based check-in ecosystem with a Telegram bot for medical staff to log precise clock-in / clock-out times into a central database, with automatic shift-close logic and notifications.",
+    tags: ["Python", "Telegram Bot API", "PostgreSQL"],
+    icon: QrCode,
   },
   {
-    title: "Проект №3",
+    title: "Automated Expense Management Bot",
     description:
-      "Короткое описание проекта. Можно указать живую ссылку и репозиторий.",
-    tags: ["Node.js", "PostgreSQL"],
-    icon: Database,
-    link: "#",
-    repo: "#",
+      "A tailored Telegram bot tracking accountable employee funds and automating data ingestion into a secure database — eliminating manual paperwork and reducing financial data loss to zero.",
+    tags: ["Python", "aiogram", "PostgreSQL"],
+    icon: Wallet,
   },
   {
-    title: "Проект №4",
-    description: "Ещё один кейс из портфолио. Замени текст и ссылки на свои.",
-    tags: ["Next.js", "Tailwind"],
-    icon: Boxes,
-    link: "#",
-    repo: "#",
+    title: "Document Workflow Automation",
+    description:
+      "Python automation for document generation, routing and archival via REST API, plus n8n orchestrations bridging CRM, spreadsheets and notification channels — replacing manual operational processes.",
+    tags: ["Python", "REST API", "n8n"],
+    icon: FileText,
+  },
+  {
+    title: "Marketing Analytics Warehouse",
+    description:
+      "End-to-end marketing analytics ingesting Yandex Direct, VK Ads and call-tracking events into a PostgreSQL + ClickHouse warehouse with multi-touch attribution and interactive executive BI dashboards.",
+    tags: ["ClickHouse", "PostgreSQL", "Metabase", "DataLens"],
+    icon: LineChart,
+  },
+  {
+    title: "B2B Bots & System Integrations",
+    description:
+      "Telegram bots and REST API integrations bridging CRM, accounting (1C), marketplaces and payment providers, plus high-throughput Go services for data processing and competitor-price monitoring.",
+    tags: ["Go", "Python", "REST", "1C"],
+    icon: Bot,
   },
 ];
 
 export const contact = {
-  heading: "Свяжись со мной",
-  text: "Открыт к интересным проектам и сотрудничеству. Напиши — отвечу быстро.",
-  email: "you@example.com",
+  heading: "Let's work together",
+  text: "Open to interesting remote projects and long-term collaboration worldwide. I usually reply fast — drop me a line.",
+  email: "gayazking@gmail.com",
 };
 
 export const navLinks = [
-  { id: "home", label: "Главная" },
-  { id: "about", label: "Обо мне" },
-  { id: "skills", label: "Навыки" },
-  { id: "experience", label: "Опыт" },
-  { id: "projects", label: "Кейсы" },
-  { id: "contact", label: "Контакты" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Work" },
+  { id: "contact", label: "Contact" },
 ];
 
 export const cvIcon = FileText;

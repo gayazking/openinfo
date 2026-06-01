@@ -8,8 +8,8 @@ export default function Experience() {
       <div className="container-px">
         <SectionHeading
           index="03"
-          title="Опыт работы"
-          subtitle="Путь, проекты и роли."
+          title="Experience"
+          subtitle="Roles, clients and engagements."
         />
 
         <div className="relative mx-auto max-w-3xl">
@@ -19,6 +19,7 @@ export default function Experience() {
           <div className="space-y-10">
             {experience.map((exp, i) => {
               const left = i % 2 === 0;
+              const Icon = exp.icon ?? BriefcaseIcon;
               return (
                 <motion.div
                   key={`${exp.company}-${i}`}
@@ -36,7 +37,7 @@ export default function Experience() {
                       left ? "sm:-right-4" : "sm:-left-4"
                     }`}
                   >
-                    <BriefcaseIcon size={14} />
+                    <Icon size={14} />
                   </span>
 
                   <div className="card-glow p-5">

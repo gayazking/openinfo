@@ -9,8 +9,8 @@ export default function Projects() {
       <div className="container-px">
         <SectionHeading
           index="04"
-          title="Кейсы и проекты"
-          subtitle="Подборка работ. Замени на свои — данные в src/data/content.ts."
+          title="Selected Work"
+          subtitle="Production systems I designed and shipped."
         />
 
         <div className="grid gap-6 sm:grid-cols-2">
@@ -34,7 +34,7 @@ export default function Projects() {
                   {project.featured && (
                     <span className="inline-flex items-center gap-1 rounded-full border border-neon-violet/30 bg-neon-violet/10 px-2.5 py-1 text-[11px] font-medium text-neon-violet">
                       <Star size={11} />
-                      Избранное
+                      Flagship
                     </span>
                   )}
                   {project.repo && (
@@ -42,7 +42,7 @@ export default function Projects() {
                       href={project.repo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Репозиторий"
+                      aria-label="Repository"
                       className="grid h-9 w-9 place-items-center rounded-lg glass text-slate-300 transition-colors hover:text-neon-cyan"
                     >
                       <Github size={16} />
@@ -53,7 +53,7 @@ export default function Projects() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Открыть проект"
+                      aria-label="Open project"
                       className="grid h-9 w-9 place-items-center rounded-lg glass text-slate-300 transition-colors hover:text-neon-cyan"
                     >
                       <ExternalLink size={16} />

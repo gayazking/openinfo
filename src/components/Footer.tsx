@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 py-10">
       <div className="container-px flex flex-col items-center justify-between gap-6 sm:flex-row">
         <p className="font-mono text-sm text-slate-500">
-          © {new Date().getFullYear()} {profile.name}. Сделано с React &amp;
+          © {new Date().getFullYear()} {profile.name}. Built with React &amp;
           Framer Motion.
         </p>
 
@@ -26,7 +26,7 @@ export default function Footer() {
 
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          aria-label="Наверх"
+          aria-label="Back to top"
           className="grid h-10 w-10 place-items-center rounded-full glass text-slate-300 transition-all hover:-translate-y-1 hover:border-neon-cyan/50 hover:text-neon-cyan"
         >
           <ArrowUp size={18} />

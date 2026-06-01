@@ -8,8 +8,8 @@ export default function Skills() {
       <div className="container-px">
         <SectionHeading
           index="02"
-          title="Навыки и стек"
-          subtitle="Технологии, с которыми я работаю каждый день."
+          title="Tech Stack"
+          subtitle="Technologies I work with every day."
         />
 
         {/* Группы навыков */}

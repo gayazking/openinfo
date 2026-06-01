@@ -7,7 +7,7 @@ export default function About() {
   return (
     <section id="about" className="relative py-24 sm:py-32">
       <div className="container-px">
-        <SectionHeading index="01" title="Обо мне" />
+        <SectionHeading index="01" title="About me" />
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <motion.div
@@ -23,8 +23,20 @@ export default function About() {
               </p>
             ))}
 
-            {/* Статистика для мобилок/планшетов */}
-            <div className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4 lg:hidden">
+            {/* Quick facts */}
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              {about.facts.map((f) => (
+                <div key={f.label} className="rounded-xl glass p-4">
+                  <p className="font-mono text-[11px] uppercase tracking-wide text-neon-cyan">
+                    {f.label}
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-white">{f.value}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Stats for mobile / tablet */}
+            <div className="grid grid-cols-2 gap-4 pt-2 sm:grid-cols-4 lg:hidden">
               {stats.map((s) => (
                 <div key={s.label} className="rounded-xl glass p-4 text-center">
                   <p className="gradient-text text-2xl font-bold">{s.value}</p>

@@ -85,7 +85,7 @@ export default function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-emerald-400" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              Открыт к новым проектам
+              Open to remote work worldwide
             </motion.div>
           )}
 
@@ -93,7 +93,7 @@ export default function Hero() {
             variants={item}
             className="mb-3 font-mono text-sm text-neon-cyan"
           >
-            Привет, меня зовут
+            Hi, my name is
           </motion.p>
 
           <motion.h1
@@ -129,7 +129,7 @@ export default function Hero() {
           <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
             <MagneticButton href={profile.cvUrl} download>
               <Download size={16} />
-              Скачать CV
+              Download CV
             </MagneticButton>
             <MagneticButton
               variant="ghost"
@@ -139,7 +139,7 @@ export default function Hero() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              Мои кейсы
+              View my work
             </MagneticButton>
           </motion.div>
 
@@ -199,7 +199,7 @@ export default function Hero() {
               >
                 <User2 size={56} />
                 <p className="px-6 text-center font-mono text-xs">
-                  Положи фото в /public/me.jpg
+                  Add your photo to /public/me.jpg
                 </p>
               </div>
 
@@ -215,7 +215,7 @@ export default function Hero() {
             >
               <CvIcon size={18} className="text-neon-cyan" />
               <div className="leading-tight">
-                <p className="text-xs text-slate-400">Роль</p>
+                <p className="text-xs text-slate-400">Role</p>
                 <p className="text-sm font-semibold text-white">{profile.role}</p>
               </div>
             </motion.div>

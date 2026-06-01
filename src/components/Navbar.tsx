@@ -100,7 +100,7 @@ export default function Navbar() {
           <button
             onClick={() => setOpen((v) => !v)}
             className="grid h-10 w-10 place-items-center rounded-lg glass md:hidden"
-            aria-label="Меню"
+            aria-label="Menu"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
