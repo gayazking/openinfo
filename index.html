@@ -20,14 +20,24 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Non-blocking font load: page paints immediately with the system
+         fallback, fonts swap in when ready (media=print → all trick). -->
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <title>Almaz Gaiazov — Backend & AI Engineer</title>
-    <script type="module" crossorigin src="/openinfo/assets/index-B-wBWR-x.js"></script>
-    <link rel="stylesheet" crossorigin href="/openinfo/assets/index-BknvzPzp.css">
+    <script type="module" crossorigin src="/openinfo/assets/index-CeUDOunc.js"></script>
+    <link rel="stylesheet" crossorigin href="/openinfo/assets/index-BbsR-A2g.css">
   </head>
   <body>
     <div id="root"></div>
