@@ -43,8 +43,9 @@ export const profile = {
     "I build AI-powered analytics, data pipelines and backend systems that run in production — from speech-to-text call grading to end-to-end business automation.",
   location: "Kazan, Russia · 100% remote",
   available: true, // green "open to work" indicator
-  photo: "/me.jpg", // ← drop your photo into /public/me.jpg (a styled placeholder shows until then)
-  cvUrl: "/cv.pdf", // ← real CV (CV_EN.pdf)
+  // BASE_URL makes these work both locally (/) and on GitHub Pages (/openinfo/)
+  photo: `${import.meta.env.BASE_URL}me.jpg`, // ← drop your photo into /public/me.jpg (a styled placeholder shows until then)
+  cvUrl: `${import.meta.env.BASE_URL}cv.pdf`, // ← real CV (CV_EN.pdf)
   email: "gayazking@gmail.com",
 };
 
