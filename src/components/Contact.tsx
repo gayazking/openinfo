@@ -15,10 +15,16 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="relative mx-auto max-w-2xl overflow-hidden rounded-3xl border border-white/10 bg-ink-700/60 p-8 text-center backdrop-blur-md sm:p-12"
+          className="relative mx-auto max-w-2xl overflow-hidden rounded-3xl border border-white/10 bg-ink-700/80 p-8 text-center sm:p-12"
         >
-          {/* Свечение внутри карточки */}
-          <div className="pointer-events-none absolute -top-20 left-1/2 h-60 w-60 -translate-x-1/2 rounded-full bg-neon-cyan/20 blur-[90px]" />
+          {/* Свечение внутри карточки — pre-blurred radial gradient, no filter */}
+          <div
+            className="pointer-events-none absolute -top-24 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(34,211,238,0.18) 0%, transparent 65%)",
+            }}
+          />
 
           <div className="relative">
             <a

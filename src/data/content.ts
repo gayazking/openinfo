@@ -203,7 +203,8 @@ export type Project = {
   icon: LucideIcon;
   link?: string;
   repo?: string;
-  featured?: boolean;
+  featured?: boolean; // flagship badge + full-width card
+  wide?: boolean; // full-width card without the badge (bento balance)
 };
 
 export const projects: Project[] = [
@@ -258,6 +259,7 @@ export const projects: Project[] = [
       "Telegram bots and REST API integrations bridging CRM, accounting (1C), marketplaces and payment providers, plus high-throughput Go services for data processing and competitor-price monitoring.",
     tags: ["Go", "Python", "REST", "1C"],
     icon: Bot,
+    wide: true,
   },
 ];
 

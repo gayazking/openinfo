@@ -49,12 +49,33 @@ export default {
           "70%": { transform: "scale(1.15)", opacity: "0" },
           "100%": { transform: "scale(0.95)", opacity: "0" },
         },
+        // Transform-only drift — runs on the compositor thread, zero repaints
+        aurora: {
+          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
+          "50%": { transform: "translate3d(6rem,3rem,0) scale(1.12)" },
+        },
+        "aurora-2": {
+          "0%, 100%": { transform: "translate3d(0,0,0) scale(1.1)" },
+          "50%": { transform: "translate3d(-5rem,4rem,0) scale(0.95)" },
+        },
+        "aurora-3": {
+          "0%, 100%": { transform: "translate3d(0,0,0) scale(0.95)" },
+          "50%": { transform: "translate3d(4rem,-4rem,0) scale(1.1)" },
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         float: "float 6s ease-in-out infinite",
         "spin-slow": "spin-slow 18s linear infinite",
         shimmer: "shimmer 8s ease infinite",
         "pulse-ring": "pulse-ring 3s ease-out infinite",
+        aurora: "aurora 26s ease-in-out infinite",
+        "aurora-2": "aurora-2 32s ease-in-out infinite",
+        "aurora-3": "aurora-3 24s ease-in-out infinite",
+        marquee: "marquee 36s linear infinite",
       },
     },
   },

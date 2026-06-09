@@ -22,7 +22,7 @@ export default function Projects() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
               className={`card-glow group flex flex-col p-6 ${
-                project.featured ? "sm:col-span-2" : ""
+                project.featured || project.wide ? "sm:col-span-2" : ""
               }`}
             >
               <div className="mb-4 flex items-start justify-between gap-4">

@@ -46,13 +46,17 @@
     @apply bg-gradient-to-r from-neon-cyan via-neon-blue to-neon-violet bg-clip-text text-transparent;
   }
 
+  /* No backdrop-blur here — cards sit on a dark bg, a translucent fill looks
+     identical and skips the expensive backdrop sampling pass per card. */
   .glass {
-    @apply border border-white/10 bg-white/[0.03] backdrop-blur-md;
+    @apply border border-white/10 bg-white/[0.04];
   }
 
-  /* Animated gradient border card */
+  /* Animated gradient border card + cursor spotlight.
+     --sx / --sy are set by a single delegated pointermove listener in App. */
   .card-glow {
-    @apply relative rounded-2xl border border-white/10 bg-ink-700/60 backdrop-blur-md transition-all duration-300;
+    @apply relative rounded-2xl border border-white/10 bg-ink-700/80 transition-[border-color,box-shadow,transform] duration-300;
+    transform: translateZ(0);
   }
   .card-glow::before {
     content: "";
@@ -68,11 +72,82 @@
     transition: opacity 0.3s ease;
     pointer-events: none;
   }
-  .card-glow:hover::before {
+  /* Cursor spotlight */
+  .card-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    background: radial-gradient(
+      360px circle at var(--sx, 50%) var(--sy, 50%),
+      rgba(34, 211, 238, 0.09),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .card-glow:hover::before,
+  .card-glow:hover::after {
     opacity: 1;
   }
   .card-glow:hover {
     @apply -translate-y-1 border-white/20 shadow-glow;
+  }
+
+  /* Premium film-grain texture (tiny inline SVG, tiled — costs nothing) */
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Skip rendering offscreen sections entirely until they near the viewport */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
+
+  /* Shimmering gradient headline */
+  .text-shimmer {
+    background: linear-gradient(
+      110deg,
+      #fff 20%,
+      #22d3ee 40%,
+      #a855f7 50%,
+      #22d3ee 60%,
+      #fff 80%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 7s linear infinite;
+  }
+
+  /* Marquee fade edges */
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+  }
+}
+
+/* Used by .text-shimmer (defined here because Tailwind only emits config
+   keyframes when an animate-* utility references them) */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: -220% 50%;
   }
 }
 

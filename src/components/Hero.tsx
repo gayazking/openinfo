@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Download, MapPin, User2 } from "lucide-react";
 import { profile, socials, stats, cvIcon as CvIcon } from "../data/content";
 import MagneticButton from "./ui/MagneticButton";
@@ -38,6 +44,16 @@ function useTypewriter(words: string[]) {
 export default function Hero() {
   const typed = useTypewriter(profile.roles);
 
+  // Scroll-linked exit: hero content drifts up and fades as you scroll past.
+  // Transform/opacity only — handled off the main thread by Framer Motion.
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   // Параллакс фото от движения мыши
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -71,9 +87,13 @@ export default function Hero() {
   return (
     <section
       id="home"
+      ref={sectionRef}
       className="relative flex min-h-screen items-center pt-24 pb-16"
     >
-      <div className="container-px grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
+      <motion.div
+        style={{ y: heroY, opacity: heroOpacity }}
+        className="container-px grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]"
+      >
         {/* Текстовая колонка */}
         <motion.div variants={container} initial="hidden" animate="show">
           {profile.available && (
@@ -98,14 +118,14 @@ export default function Hero() {
 
           <motion.h1
             variants={item}
-            className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl"
+            className="text-shimmer text-5xl font-bold leading-[1.02] tracking-tighter sm:text-7xl"
           >
             {profile.name}
           </motion.h1>
 
           <motion.div
             variants={item}
-            className="mt-3 flex h-9 items-center text-2xl font-semibold sm:text-3xl"
+            className="mt-4 flex h-10 items-center text-2xl font-semibold sm:text-3xl"
           >
             <span className="gradient-text">{typed}</span>
             <span className="ml-1 inline-block h-7 w-[2px] animate-pulse bg-neon-cyan" />
@@ -221,7 +241,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Полоса статистики */}
       <motion.div
