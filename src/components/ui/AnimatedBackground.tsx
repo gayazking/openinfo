@@ -4,21 +4,31 @@ import { useEffect, useRef } from "react";
  * Tech background: grid + aurora glow blobs + particle network on canvas.
  *
  * Performance notes:
+ * - LITE mode (touch / low-core / reduced-motion devices): no canvas at all
+ *   and the aurora blobs are static gradients — zero continuous work.
+ * - Desktop canvas is capped at 30fps — a slow-drifting particle field looks
+ *   identical at 30 and 60, for half the cost.
  * - Glows are pre-blurred radial gradients (no CSS `filter: blur()` — that
  *   re-renders a huge GPU texture every frame and is the #1 jank source).
  * - Aurora drift uses transform-only keyframes (compositor thread).
- * - Canvas renders at DPR 1 (a blurry-ish particle field doesn't need retina),
- *   pauses when the tab is hidden, and uses a desynchronized context.
- * - Respects prefers-reduced-motion.
+ * - Canvas renders at DPR 1, pauses when the tab is hidden, and uses a
+ *   desynchronized context.
  */
+
+// Touch devices, weak CPUs and reduced-motion users get the static version.
+const LITE =
+  typeof window !== "undefined" &&
+  (window.matchMedia("(pointer: coarse)").matches ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    (navigator.hardwareConcurrency || 8) <= 4);
+
+const FRAME_MS = 1000 / 30; // 30fps cap for the particle canvas
+
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReduced) return;
+    if (LITE) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -29,12 +39,13 @@ export default function AnimatedBackground() {
     let running = true;
     let width = 0;
     let height = 0;
+    let lastFrame = 0;
 
     type P = { x: number; y: number; vx: number; vy: number };
     let particles: P[] = [];
 
     const mouse = { x: -9999, y: -9999 };
-    const LINK_DIST = 110;
+    const LINK_DIST = 105;
     const LINK_DIST_SQ = LINK_DIST * LINK_DIST;
 
     function resize() {
@@ -47,17 +58,24 @@ export default function AnimatedBackground() {
       canvas!.style.width = width + "px";
       canvas!.style.height = height + "px";
 
-      const count = Math.min(70, Math.floor((width * height) / 24000));
+      const count = Math.min(55, Math.floor((width * height) / 30000));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
+        // 2× speed of the old 60fps values — same on-screen velocity at 30fps
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
       }));
     }
 
-    function step() {
+    function step(now: number) {
       if (!running) return;
+      raf = requestAnimationFrame(step);
+
+      // 30fps cap — skip frames instead of rendering them.
+      if (now - lastFrame < FRAME_MS) return;
+      lastFrame = now;
+
       ctx!.clearRect(0, 0, width, height);
 
       for (const p of particles) {
@@ -70,8 +88,8 @@ export default function AnimatedBackground() {
         const dxm = mouse.x - p.x;
         const dym = mouse.y - p.y;
         if (dxm * dxm + dym * dym < 140 * 140) {
-          p.x += dxm * 0.0015;
-          p.y += dym * 0.0015;
+          p.x += dxm * 0.003;
+          p.y += dym * 0.003;
         }
       }
 
@@ -112,8 +130,6 @@ export default function AnimatedBackground() {
         ctx!.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
       }
       ctx!.fill();
-
-      raf = requestAnimationFrame(step);
     }
 
     function onMove(e: PointerEvent) {
@@ -135,7 +151,7 @@ export default function AnimatedBackground() {
     }
 
     resize();
-    step();
+    raf = requestAnimationFrame(step);
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", onLeave);
@@ -151,6 +167,10 @@ export default function AnimatedBackground() {
     };
   }, []);
 
+  // Static gradients in LITE mode; animated (compositor-only) on desktop.
+  const blob = (anim: string) =>
+    LITE ? "" : ` ${anim} will-change-transform`;
+
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {/* Base dark background */}
@@ -162,29 +182,32 @@ export default function AnimatedBackground() {
       {/* Aurora glow blobs — radial gradients (pre-blurred, zero filter cost),
           drifting with transform-only animations on the compositor thread. */}
       <div
-        className="absolute -top-40 -left-40 h-[50rem] w-[50rem] animate-aurora rounded-full"
+        className={`absolute -top-40 -left-40 h-[50rem] w-[50rem] rounded-full${blob("animate-aurora")}`}
         style={{
           background:
             "radial-gradient(circle, rgba(34,211,238,0.14) 0%, rgba(34,211,238,0.05) 40%, transparent 65%)",
         }}
       />
       <div
-        className="absolute top-1/4 -right-48 h-[46rem] w-[46rem] animate-aurora-2 rounded-full"
+        className={`absolute top-1/4 -right-48 h-[46rem] w-[46rem] rounded-full${blob("animate-aurora-2")}`}
         style={{
           background:
             "radial-gradient(circle, rgba(168,85,247,0.13) 0%, rgba(168,85,247,0.05) 40%, transparent 65%)",
         }}
       />
-      <div
-        className="absolute -bottom-40 left-1/4 h-[44rem] w-[44rem] animate-aurora-3 rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(59,130,246,0.04) 40%, transparent 65%)",
-        }}
-      />
+      {/* Third blob skipped in LITE mode — less overdraw on small screens */}
+      {!LITE && (
+        <div
+          className="absolute -bottom-40 left-1/4 h-[44rem] w-[44rem] rounded-full animate-aurora-3 will-change-transform"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(59,130,246,0.04) 40%, transparent 65%)",
+          }}
+        />
+      )}
 
-      {/* Particles */}
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-70" />
+      {/* Particles — desktop only */}
+      {!LITE && <canvas ref={canvasRef} className="absolute inset-0 opacity-70" />}
 
       {/* Vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink-900" />

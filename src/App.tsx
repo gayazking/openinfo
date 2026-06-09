@@ -76,7 +76,6 @@ export default function App() {
         </div>
       </main>
       <Footer />
-      <div className="noise-overlay" />
     </>
   );
 }

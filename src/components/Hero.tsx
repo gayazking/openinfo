@@ -41,9 +41,16 @@ function useTypewriter(words: string[]) {
   return text;
 }
 
-export default function Hero() {
+/**
+ * Isolated leaf component: the typewriter re-renders every 45–85ms forever —
+ * keeping it here means React only re-renders this <span>, not the whole Hero.
+ */
+function TypedRole() {
   const typed = useTypewriter(profile.roles);
+  return <span className="gradient-text">{typed}</span>;
+}
 
+export default function Hero() {
   // Scroll-linked exit: hero content drifts up and fades as you scroll past.
   // Transform/opacity only — handled off the main thread by Framer Motion.
   const sectionRef = useRef<HTMLElement>(null);
@@ -127,7 +134,7 @@ export default function Hero() {
             variants={item}
             className="mt-4 flex h-10 items-center text-2xl font-semibold sm:text-3xl"
           >
-            <span className="gradient-text">{typed}</span>
+            <TypedRole />
             <span className="ml-1 inline-block h-7 w-[2px] animate-pulse bg-neon-cyan" />
           </motion.div>
 
@@ -197,8 +204,16 @@ export default function Hero() {
             style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
             className="relative"
           >
-            {/* Вращающееся кольцо-свечение */}
-            <div className="absolute -inset-4 animate-spin-slow rounded-[2rem] bg-[conic-gradient(from_0deg,rgba(34,211,238,0.5),rgba(168,85,247,0.5),rgba(34,211,238,0.5))] opacity-40 blur-xl" />
+            {/* Статичное свечение за фото — pre-blurred radial gradient.
+                (Раньше тут крутился conic-gradient с filter:blur(24px) —
+                главный источник лагов на любом устройстве.) */}
+            <div
+              className="absolute -inset-6 rounded-[2.5rem]"
+              style={{
+                background:
+                  "radial-gradient(closest-side, rgba(34,211,238,0.20), rgba(168,85,247,0.14) 55%, transparent 80%)",
+              }}
+            />
 
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-ink-700">
               <img
@@ -227,18 +242,15 @@ export default function Hero() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
             </div>
 
-            {/* Плавающая карточка-метка */}
-            <motion.div
-              className="absolute -bottom-5 -left-5 flex items-center gap-2 rounded-xl glass px-4 py-3 shadow-glow"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            >
+            {/* Плавающая карточка-метка — CSS-анимация (компоситор),
+                а не бесконечный JS-цикл framer-motion в главном потоке */}
+            <div className="animate-float absolute -bottom-5 -left-5 flex items-center gap-2 rounded-xl glass px-4 py-3 shadow-glow">
               <CvIcon size={18} className="text-neon-cyan" />
               <div className="leading-tight">
                 <p className="text-xs text-slate-400">Role</p>
                 <p className="text-sm font-semibold text-white">{profile.role}</p>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </motion.div>

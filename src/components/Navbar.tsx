@@ -56,7 +56,9 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "border-b border-white/10 bg-ink-900/70 backdrop-blur-xl"
+            ? // No backdrop-blur: the animated bg beneath would force a
+              // re-blur every frame. A near-opaque fill reads the same.
+              "border-b border-white/10 bg-ink-900/90"
             : "border-b border-transparent"
         }`}
       >
@@ -118,7 +120,7 @@ export default function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed inset-x-0 top-16 z-40 border-b border-white/10 bg-ink-900/95 backdrop-blur-xl md:hidden"
+          className="fixed inset-x-0 top-16 z-40 border-b border-white/10 bg-ink-900/95 md:hidden"
         >
           <ul className="container-px flex flex-col py-3">
             {navLinks.map((link) => (

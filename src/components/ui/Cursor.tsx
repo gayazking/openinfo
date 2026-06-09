@@ -30,11 +30,11 @@ export default function Cursor() {
     <>
       <motion.div
         style={{ x: sx, y: sy }}
-        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-3 -mt-3 h-6 w-6 rounded-full border border-neon-cyan/60 mix-blend-screen"
+        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-3 -mt-3 h-6 w-6 rounded-full border border-neon-cyan/60"
       />
       <motion.div
         style={{ x, y }}
-        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-neon-cyan mix-blend-screen"
+        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-neon-cyan"
       />
     </>
   );

@@ -5,7 +5,12 @@ import { skillGroups } from "../../data/content";
  * the track is duplicated once and slides -50%, so the loop is seamless.
  */
 export default function Marquee() {
-  const items = Array.from(new Set(skillGroups.flatMap((g) => g.items)));
+  // Cap the track length: the moving strip is one big GPU texture, and
+  // 30+ items × 2 tracks ≈ 9000px wide — too much for mobile GPUs.
+  const items = Array.from(new Set(skillGroups.flatMap((g) => g.items))).slice(
+    0,
+    16
+  );
 
   const Track = ({ ariaHidden = false }: { ariaHidden?: boolean }) => (
     <div
