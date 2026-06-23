@@ -1,7 +1,6 @@
 /**
- * Custom "AG" monogram — geometric, neon-gradient, on a beveled chip.
- * Pure SVG (no JS), ~zero render cost, animates a single rotating
- * gradient sweep on hover via the parent .group:hover.
+ * Strict monochrome "AG" monogram — thin outlined square, clean stroke
+ * letters, single off-white color. No gradients, no glows, no accents.
  */
 export default function Logo({
   size = 36,
@@ -10,6 +9,7 @@ export default function Logo({
   size?: number;
   className?: string;
 }) {
+  const ink = "#e2e8f0";
   return (
     <svg
       viewBox="0 0 64 64"
@@ -18,70 +18,33 @@ export default function Logo({
       className={className}
       aria-hidden="true"
     >
-      <defs>
-        <linearGradient id="logoStroke" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#22d3ee" />
-          <stop offset="55%" stopColor="#3b82f6" />
-          <stop offset="100%" stopColor="#a855f7" />
-        </linearGradient>
-        <radialGradient id="logoGlow" cx="50%" cy="45%" r="55%">
-          <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      {/* Dark chip + inner glow + gradient stroke */}
-      <rect x="2" y="2" width="60" height="60" rx="16" fill="#0a0b12" />
-      <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#logoGlow)" />
+      {/* Thin outlined square, gently rounded */}
       <rect
-        x="2"
-        y="2"
-        width="60"
-        height="60"
-        rx="16"
+        x="3.25"
+        y="3.25"
+        width="57.5"
+        height="57.5"
+        rx="6"
         fill="none"
-        stroke="url(#logoStroke)"
-        strokeWidth="2.5"
+        stroke={ink}
+        strokeWidth="1.5"
       />
 
-      {/* Top-left corner facet — gives the chip a "cut" highlight */}
-      <line
-        x1="14"
-        y1="5"
-        x2="5"
-        y2="14"
-        stroke="url(#logoStroke)"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        opacity="0.6"
-      />
-
-      {/* Letter A — clean triangular strokes with a crossbar */}
       <g
         fill="none"
-        stroke="url(#logoStroke)"
-        strokeWidth="3.4"
+        stroke={ink}
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M 9 49 L 19 14 L 29 49" />
-        <path d="M 13 38 L 25 38" />
-      </g>
+        {/* A — two diagonal strokes with a crossbar */}
+        <path d="M 9 50 L 18 13 L 27 50" />
+        <path d="M 13 38 L 23 38" />
 
-      {/* Letter G — open 3/4 circle with the characteristic inner shelf */}
-      <g
-        fill="none"
-        stroke="url(#logoStroke)"
-        strokeWidth="3.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M 55 22 A 13 13 0 1 0 55 42" />
-        <path d="M 55 42 L 46 42 L 46 33 L 52 33" />
+        {/* G — clean 3/4 arc with a single inner shelf */}
+        <path d="M 53 22 A 12 12 0 1 0 53 42" />
+        <path d="M 53 42 L 46 42 L 46 34 L 51 34" />
       </g>
-
-      {/* Tiny "prompt" dot — bottom-right tech accent */}
-      <circle cx="54" cy="54" r="2.2" fill="#22d3ee" />
     </svg>
   );
 }

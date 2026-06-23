@@ -63,7 +63,7 @@ export default function Navbar() {
             aria-label={profile.name}
             className="group flex items-center gap-3 font-mono text-lg font-bold text-white transition-transform hover:scale-[1.03]"
           >
-            <Logo size={38} className="drop-shadow-[0_0_12px_rgba(34,211,238,0.45)]" />
+            <Logo size={36} />
             <span className="hidden sm:inline">{profile.name}</span>
           </button>
 
