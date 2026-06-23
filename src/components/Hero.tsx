@@ -219,7 +219,7 @@ export default function Hero() {
               <img
                 src={profile.photo}
                 alt={profile.name}
-                className="aspect-[4/5] w-full object-cover"
+                className="aspect-[4/5] w-full object-cover object-[center_25%]"
                 onError={(e) => {
                   // Заглушка, если фото нет
                   (e.currentTarget as HTMLImageElement).style.display = "none";

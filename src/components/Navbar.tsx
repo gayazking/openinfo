@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "../data/content";
+import Logo from "./ui/Logo";
 
 export default function Navbar() {
   const [active, setActive] = useState("home");
@@ -45,12 +46,6 @@ export default function Navbar() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }
 
-  const initials = profile.name
-    .split(" ")
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("");
-
   return (
     <>
       <header
@@ -65,11 +60,10 @@ export default function Navbar() {
         <nav className="container-px flex h-16 items-center justify-between">
           <button
             onClick={() => go("home")}
-            className="group flex items-center gap-2 font-mono text-lg font-bold text-white"
+            aria-label={profile.name}
+            className="group flex items-center gap-3 font-mono text-lg font-bold text-white transition-transform hover:scale-[1.03]"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-neon-cyan to-neon-violet text-ink-900">
-              {initials || "<>"}
-            </span>
+            <Logo size={38} className="drop-shadow-[0_0_12px_rgba(34,211,238,0.45)]" />
             <span className="hidden sm:inline">{profile.name}</span>
           </button>
 

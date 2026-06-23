@@ -64,8 +64,8 @@ export const socials: Social[] = [
 ];
 
 export const stats = [
-  { value: "5+", label: "years experience" },
-  { value: "3", label: "active contracts" },
+  { value: "6+", label: "years experience" },
+  { value: "1+3", label: "full-time + contracts" },
   { value: "100%", label: "calls AI-graded" },
   { value: "24/7", label: "production uptime" },
 ];
@@ -73,20 +73,20 @@ export const stats = [
 export const about = {
   heading: "About me",
   paragraphs: [
-    "I'm a software developer and backend engineer with 5+ years of experience designing and shipping production systems in Python and Go. My core domains are AI-powered analytics, data engineering, business automation and backend APIs — with the supporting admin interfaces built in TypeScript / React.",
-    "My flagship product is Retynex Pro, a commercial B2B SaaS for AI-driven call & chat analytics, in active production use by healthcare and dental clients. I currently maintain three concurrent long-term contracts as an independent contractor, working 100% remotely.",
+    "I'm a software developer and backend engineer with 6+ years of experience designing and shipping production systems in Python and Go. My core domains are AI-powered analytics, data engineering, business automation and backend APIs — with the supporting admin interfaces built in TypeScript / React.",
+    "My flagship product is Retynex Pro, a commercial B2B SaaS for AI-driven call & chat analytics, in active production use by healthcare and dental clients. I'm Lead Software Developer at LLC «Girudomed» full-time since July 2024, and in parallel maintain three concurrent long-term contracts as an independent contractor — 100% remote.",
   ],
   highlights: [
     "End-to-end ownership: backend, AI/STT, data & frontend",
     "Production AI at scale — 100% of calls auto-graded",
     "Self-hosted GPU/ASR cluster with 24/7 observability",
     "Clean architecture & type-safe code (Python, Go, TS)",
-    "Three concurrent long-term contracts, fully remote",
+    "Full-time lead + three concurrent long-term contracts",
     "AI-assisted delivery (Claude Code, Copilot, Codex)",
   ],
   // Compact info panel under the bio:
   facts: [
-    { label: "Experience", value: "5+ years" },
+    { label: "Experience", value: "6+ years" },
     { label: "Education", value: "M.Sc. · KNRTU-KAI (Honors)" },
     { label: "Languages", value: "Russian · Tatar · English B2" },
     { label: "Availability", value: "100% remote, worldwide" },
@@ -160,12 +160,21 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    role: "Backend Developer / AI Engineer",
-    company: "LLC «Girudomed» — Healthcare · Kazan (remote)",
-    period: "Apr 2025 – Present",
+    role: "Lead Software Developer / Backend & AI Engineer",
+    company: "LLC «Girudomed» — Healthcare · Kazan (full-time, remote)",
+    period: "Jul 2024 – Present",
     description:
-      "Long-term software development & IT-services contract. Built and scaled Retynex Pro for the client's call-center operations; delivered a QR-based time & attendance system for medical staff and an end-to-end marketing analytics warehouse with multi-touch attribution.",
-    tags: ["Python", "FastAPI", "LLM", "ClickHouse", "n8n"],
+      "Full-time lead developer. Built Retynex Pro from inception and scaled it to a production B2B SaaS; own the end-to-end backend (Python/Go services, REST APIs, LLM & STT integrations, omnichannel chat). Also delivered a QR-based time & attendance system for medical staff and the data engineering stack — ETL from 1C with executive dashboards in Metabase and Yandex DataLens.",
+    tags: ["Python", "FastAPI", "Go", "LLM", "ClickHouse", "n8n"],
+    icon: Briefcase,
+  },
+  {
+    role: "Backend Developer / IT Consultant",
+    company: "LLC Stomatology «Master Dent» (Azurdent / azurs.ru) — Dental · Kazan (remote)",
+    period: "Apr 2026 – Present",
+    description:
+      "Long-term contract for a dental clinic chain. Built and maintain the azurs.ru web platform — online booking, patient personal account, CRM and messenger integrations. Engineered 1C ecosystem connectors, financial-report automation and BI dashboards in Yandex DataLens with ETL pipelines from 1C into PostgreSQL.",
+    tags: ["Python", "Go", "TypeScript", "1C", "PostgreSQL", "DataLens"],
     icon: Briefcase,
   },
   {
