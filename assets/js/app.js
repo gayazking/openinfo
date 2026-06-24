@@ -111,6 +111,11 @@
     renderCard(name, ONI[year]);
     card.classList.add('open');
   }
+  function starsHTML(level) {
+    let s = '<div class="stars">';
+    for (let i = 0; i < 5; i++) s += '<span class="star' + (i <= level ? ' on' : '') + '">★</span>';
+    return s + '</div>';
+  }
   function renderCard(name, oni) {
     const st = countryState(name, oni);
     const lvl = LEVELS[st.level];
@@ -123,7 +128,7 @@
     html += '<div class="card-cont">' + (st.continent || 'нет данных ENSO') + '</div></div>';
     html += '</div>';
     html += '<div class="card-score"><div class="cs-num" style="color:' + lvl.color + '">' + st.score + '</div>';
-    html += '<div class="cs-lab"><b>' + lvl.name + '</b><span>индекс пиздеца / 100</span></div></div>';
+    html += '<div class="cs-lab">' + starsHTML(st.level) + '<b>' + lvl.name + '</b><span>индекс угрозы / 100</span></div></div>';
 
     if (st.hazards.length) {
       html += '<div class="haz-grid">';
@@ -163,15 +168,17 @@
     if (!top.length) {
       html = '<div class="rank-empty">В этот год сильных ENSO-аномалий нет — мир относительно спокоен 🌍</div>';
     }
+    const medals = ['🥇', '🥈', '🥉'];
     top.forEach(function (r, i) {
       const lvl = LEVELS[r.st.level];
       const haz = r.st.hazards.slice(0, 3).map(function (h) { return h.e; }).join('');
-      html += '<button class="rank-row" data-n="' + r.name + '">';
-      html += '<span class="rk-pos">' + (i + 1) + '</span>';
-      html += '<span class="rk-bar"><span class="rk-fill" style="width:' + r.st.score + '%;background:' + lvl.color + '"></span></span>';
-      html += '<span class="rk-name">' + (RU_NAMES[r.name] || r.name) + '</span>';
+      const pos = i < 3 ? '<span class="medal">' + medals[i] + '</span>' : '<span class="rk-num">' + (i + 1) + '</span>';
+      html += '<button class="rank-row' + (i < 3 ? ' top3' : '') + '" data-n="' + r.name + '">';
+      html += '<span class="rk-pos">' + pos + '</span>';
+      html += '<span class="rk-mid"><span class="rk-name">' + (RU_NAMES[r.name] || r.name) + '</span>';
+      html += '<span class="rk-bar"><span class="rk-fill" style="width:' + r.st.score + '%;background:' + lvl.color + '"></span></span></span>';
       html += '<span class="rk-haz">' + haz + '</span>';
-      html += '<span class="rk-sc" style="color:' + lvl.color + '">' + r.st.score + '</span>';
+      html += '<span class="rk-sc" style="background:' + lvl.color + '">' + r.st.score + '</span>';
       html += '</button>';
     });
     rankBox.innerHTML = html;

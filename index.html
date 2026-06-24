@@ -3,48 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#ff6b35">
+<meta name="theme-color" content="#3a2616">
 <title>Эль-Ниньо: Карта Пиздеца 🌍🔥</title>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body data-phase="el">
 
-  <!-- ШАПКА -->
+  <!-- ======= ИГРОВАЯ ШАПКА ======= -->
   <header class="topbar">
-    <div class="logo">🌍🔥</div>
-    <div class="ttl">
-      <h1>Карта Пиздеца</h1>
-      <p>что устроит Эль-Ниньо — по странам и годам</p>
+    <div class="crest">🌍</div>
+    <div class="banner">
+      <h1>КАРТА ПИЗДЕЦА</h1>
+      <p>царство Эль-Ниньо · по странам и годам</p>
     </div>
-    <button id="info-btn" aria-label="о проекте">ℹ️</button>
+    <button id="info-btn" class="gear" aria-label="о проекте">⚙️</button>
   </header>
 
-  <!-- ФАЗА + ГОД -->
-  <section class="hud">
-    <div class="hud-year">
-      <span id="phase-face" class="big-face">🔥</span>
-      <div>
-        <div id="year-val" class="year-num">2023</div>
-        <div id="phase-label" class="phase">Эль-Ниньо</div>
+  <!-- ======= КОМАНДНАЯ ПАНЕЛЬ (фаза + год + угроза) ======= -->
+  <section class="hud panel wood">
+    <div class="hud-top">
+      <div class="phase-medal">
+        <span id="phase-face" class="big-face">🔥</span>
       </div>
+      <div class="year-plate">
+        <span class="year-cap">ГОД</span>
+        <span id="year-val" class="year-num">2023</span>
+      </div>
+      <div id="phase-label" class="phase">Эль-Ниньо</div>
     </div>
     <div class="meter">
+      <span class="meter-cap">⚠️ УГРОЗА ПЛАНЕТЕ</span>
       <div class="meter-track"><div id="meter-fill" class="meter-fill"></div></div>
       <div id="meter-txt" class="meter-txt">—</div>
     </div>
     <p id="scenario-note" class="scenario-note">⚠️ Это сценарий, а не прогноз: ENSO нельзя предсказать на годы вперёд. Амплитуда усилена под вывод о росте экстремальных Эль-Ниньо при потеплении.</p>
   </section>
 
-  <!-- КАРТА -->
+  <!-- ======= КАРТА МИРА ======= -->
   <section id="map-wrap" class="map-wrap">
-    <svg id="map" xmlns="http://www.w3.org/2000/svg" aria-label="карта мира"></svg>
+    <div class="map-frame">
+      <span class="compass">🧭</span>
+      <svg id="map" xmlns="http://www.w3.org/2000/svg" aria-label="карта мира"></svg>
+    </div>
+    <div id="legend" class="legend"></div>
   </section>
-  <div id="legend" class="legend"></div>
 
-  <!-- ТАЙМЛАЙН -->
-  <section class="timeline">
+  <!-- ======= ТАЙМЛАЙН ======= -->
+  <section class="timeline panel wood">
+    <div class="ribbon">⏳ МАШИНА ВРЕМЕНИ</div>
     <div class="tl-row">
-      <button id="play-btn" class="play" aria-label="проиграть годы">▶</button>
+      <button id="play-btn" class="gem-btn" aria-label="проиграть годы">▶</button>
       <input id="year-slider" class="slider" type="range" step="1" aria-label="год">
     </div>
     <div id="spark" class="spark"></div>
@@ -58,30 +66,31 @@
     </div>
   </section>
 
-  <!-- РЕЙТИНГ -->
-  <section class="ranking">
-    <h2>🏆 Топ-пиздеца в этом году</h2>
+  <!-- ======= ТАБЛИЦА ЛИДЕРОВ ======= -->
+  <section class="ranking panel wood">
+    <div class="ribbon ribbon-red">🏆 ДОСКА ПИЗДЕЦА</div>
     <div id="rank-list" class="rank-list"></div>
-    <p class="hint">Тапни страну на карте или в списке — будет сводка.</p>
+    <p class="hint">Тапни страну на карте или в списке — будет боевая сводка.</p>
   </section>
 
   <footer class="foot">
     Данные: ONI NOAA CPC (Niño 3.4) · телеконнекции по Ropelewski &amp; Halpert (1987),
-    Cai et al. (Nature), NOAA/IRI, WMO. Это качественная модель воздействий, а не точечный прогноз.
+    Cai et al. (Nature), NOAA/IRI, WMO. Качественная модель воздействий, а не точечный прогноз.
   </footer>
 
-  <!-- КАРТОЧКА СТРАНЫ -->
+  <!-- ======= БОЕВАЯ КАРТОЧКА СТРАНЫ ======= -->
   <div id="card" class="card"><div id="card-body" class="card-body"></div></div>
 
-  <!-- О ПРОЕКТЕ -->
+  <!-- ======= О ПРОЕКТЕ ======= -->
   <div id="info-modal" class="modal" hidden>
-    <div class="modal-box">
+    <div class="modal-box panel wood">
       <button id="info-close" class="modal-close">✕</button>
       <h2>🌍 Что это</h2>
-      <p>Интерактивная карта того, что творит <b>Эль-Ниньо</b> (и его сестра <b>Ла-Нинья</b>) на планете — по странам и по годам.</p>
+      <p>Интерактивная карта того, что <b>Эль-Ниньо</b> (и его сестра <b>Ла-Нинья</b>) творит на планете — по странам и по годам.</p>
       <h3>Как читать</h3>
       <ul>
-        <li><b>Цвет страны</b> — «индекс пиздеца» 0–100: от <span style="color:#2bb673">😌 спокухи</span> до <span style="color:#b14aed">🫠 ПИЗДЕЦА</span>.</li>
+        <li><b>Цвет страны</b> — индекс угрозы 0–100: от <span style="color:#2bb673">😌 спокухи</span> до <span style="color:#b14aed">🫠 ПИЗДЕЦА</span>.</li>
+        <li><b>⭐ Звёзды</b> в карточке — уровень разрухи, от 1 до 5.</li>
         <li><b>Ползунок и ▶</b> — прокрутка лет 1950→2035. Видно, как очаг бедствия гуляет по континентам.</li>
         <li><b>Столбики снизу</b> — реальный индекс ONI: 🟧 Эль-Ниньо, 🟦 Ла-Нинья.</li>
         <li><b>Тап по стране</b> — сводка: какие катаклизмы, насколько жёстко, почему.</li>
@@ -89,7 +98,7 @@
       <h3>Откуда данные</h3>
       <p>Индекс ONI (Niño 3.4) — таблица NOAA Climate Prediction Center, наблюдения 1950–2025.
       Воздействия — из климатологической литературы по телеконнекциям ENSO. После 2025 — иллюстративный сценарий, не прогноз.</p>
-      <p class="disc">Это просветительский инструмент. Для решений используйте оперативные бюллетени NOAA/WMO/Росгидромета.</p>
+      <p class="disc">Просветительский инструмент. Для решений используйте оперативные бюллетени NOAA/WMO/Росгидромета.</p>
     </div>
   </div>
 
