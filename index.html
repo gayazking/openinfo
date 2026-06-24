@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b35">
+<title>Эль-Ниньо: Карта Пиздеца 🌍🔥</title>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-phase="el">
+
+  <!-- ШАПКА -->
+  <header class="topbar">
+    <div class="logo">🌍🔥</div>
+    <div class="ttl">
+      <h1>Карта Пиздеца</h1>
+      <p>что устроит Эль-Ниньо — по странам и годам</p>
+    </div>
+    <button id="info-btn" aria-label="о проекте">ℹ️</button>
+  </header>
+
+  <!-- ФАЗА + ГОД -->
+  <section class="hud">
+    <div class="hud-year">
+      <span id="phase-face" class="big-face">🔥</span>
+      <div>
+        <div id="year-val" class="year-num">2023</div>
+        <div id="phase-label" class="phase">Эль-Ниньо</div>
+      </div>
+    </div>
+    <div class="meter">
+      <div class="meter-track"><div id="meter-fill" class="meter-fill"></div></div>
+      <div id="meter-txt" class="meter-txt">—</div>
+    </div>
+    <p id="scenario-note" class="scenario-note">⚠️ Это сценарий, а не прогноз: ENSO нельзя предсказать на годы вперёд. Амплитуда усилена под вывод о росте экстремальных Эль-Ниньо при потеплении.</p>
+  </section>
+
+  <!-- КАРТА -->
+  <section id="map-wrap" class="map-wrap">
+    <svg id="map" xmlns="http://www.w3.org/2000/svg" aria-label="карта мира"></svg>
+  </section>
+  <div id="legend" class="legend"></div>
+
+  <!-- ТАЙМЛАЙН -->
+  <section class="timeline">
+    <div class="tl-row">
+      <button id="play-btn" class="play" aria-label="проиграть годы">▶</button>
+      <input id="year-slider" class="slider" type="range" step="1" aria-label="год">
+    </div>
+    <div id="spark" class="spark"></div>
+    <div class="jumps">
+      <span class="jl">Легендарные годы:</span>
+      <button data-jump="1982">1982</button>
+      <button data-jump="1997">1997</button>
+      <button data-jump="2010">2010 🥶</button>
+      <button data-jump="2015">2015</button>
+      <button data-jump="2023">2023</button>
+    </div>
+  </section>
+
+  <!-- РЕЙТИНГ -->
+  <section class="ranking">
+    <h2>🏆 Топ-пиздеца в этом году</h2>
+    <div id="rank-list" class="rank-list"></div>
+    <p class="hint">Тапни страну на карте или в списке — будет сводка.</p>
+  </section>
+
+  <footer class="foot">
+    Данные: ONI NOAA CPC (Niño 3.4) · телеконнекции по Ropelewski &amp; Halpert (1987),
+    Cai et al. (Nature), NOAA/IRI, WMO. Это качественная модель воздействий, а не точечный прогноз.
+  </footer>
+
+  <!-- КАРТОЧКА СТРАНЫ -->
+  <div id="card" class="card"><div id="card-body" class="card-body"></div></div>
+
+  <!-- О ПРОЕКТЕ -->
+  <div id="info-modal" class="modal" hidden>
+    <div class="modal-box">
+      <button id="info-close" class="modal-close">✕</button>
+      <h2>🌍 Что это</h2>
+      <p>Интерактивная карта того, что творит <b>Эль-Ниньо</b> (и его сестра <b>Ла-Нинья</b>) на планете — по странам и по годам.</p>
+      <h3>Как читать</h3>
+      <ul>
+        <li><b>Цвет страны</b> — «индекс пиздеца» 0–100: от <span style="color:#2bb673">😌 спокухи</span> до <span style="color:#b14aed">🫠 ПИЗДЕЦА</span>.</li>
+        <li><b>Ползунок и ▶</b> — прокрутка лет 1950→2035. Видно, как очаг бедствия гуляет по континентам.</li>
+        <li><b>Столбики снизу</b> — реальный индекс ONI: 🟧 Эль-Ниньо, 🟦 Ла-Нинья.</li>
+        <li><b>Тап по стране</b> — сводка: какие катаклизмы, насколько жёстко, почему.</li>
+      </ul>
+      <h3>Откуда данные</h3>
+      <p>Индекс ONI (Niño 3.4) — таблица NOAA Climate Prediction Center, наблюдения 1950–2025.
+      Воздействия — из климатологической литературы по телеконнекциям ENSO. После 2025 — иллюстративный сценарий, не прогноз.</p>
+      <p class="disc">Это просветительский инструмент. Для решений используйте оперативные бюллетени NOAA/WMO/Росгидромета.</p>
+    </div>
+  </div>
+
+  <script src="assets/js/world.js"></script>
+  <script src="assets/js/names.js"></script>
+  <script src="assets/js/oni.js"></script>
+  <script src="assets/js/impacts.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    (function () {
+      var im = document.getElementById('info-modal');
+      document.getElementById('info-btn').onclick = function () { im.hidden = false; };
+      document.getElementById('info-close').onclick = function () { im.hidden = true; };
+      im.addEventListener('click', function (e) { if (e.target === im) im.hidden = true; });
+    })();
+  </script>
+</body>
+</html>
